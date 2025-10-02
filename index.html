@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume Service – Landing</title>
+    <meta name="description" content="ATS-optimized resumes crafted by HR experts to help you land more interviews." />
+    <style>
+      /* Design Tokens (3-5 colors total for clarity and performance)
+        - Primary: red
+        - Surface: white
+        - Hero surface: soft pink
+        - Neutral text grays
+        - Accent: green (ratings) + gold (stars)
+      */
+      :root{
+        --primary:#ff2d55;           /* red */
+        --surface:#ffffff;            /* white */
+        --hero:#ffe6ec;               /* soft pink panel */
+        --text-900:#0f0f10;           /* headings */
+        --text-700:#404145;           /* body */
+        --text-500:#6b7280;           /* muted */
+        --green:#22c55e;              /* rating number */
+        --gold:#f59e0b;               /* star color */
+        --shadow: 0 8px 24px rgba(16,24,40,.08), 0 2px 6px rgba(16,24,40,.06);
+        --radius-lg:20px;
+        --radius-md:14px;
+        --radius-sm:10px;
+        --container:1200px;
+        --gutter:24px;
+      }
+
+      /* Base reset + typography */
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        color:var(--text-900);
+        background:var(--surface);
+        -webkit-font-smoothing:antialiased;
+        text-rendering:optimizeLegibility;
+      }
+      img{max-width:100%; display:block}
+      a{color:inherit; text-decoration:none}
+
+      .container{
+        max-width:var(--container);
+        margin-inline:auto;
+        padding-inline:var(--gutter);
+      }
+
+      /* Header */
+      .site-header{
+        position:sticky; top:0; z-index:50;
+        background:var(--surface);
+        box-shadow: 0 1px 0 rgba(17,17,17,.06);
+      }
+      .nav{
+        display:flex; align-items:center; justify-content:space-between;
+        min-height:72px;
+      }
+      .brand{
+        display:flex; align-items:center; gap:10px;
+        font-weight:700; letter-spacing:.2px;
+      }
+      .brand .tagline{
+        font-weight:400; color:var(--text-500); font-size:12px;
+        display:block; margin-top:2px;
+      }
+      .brand-mark{
+        width:36px; height:36px; border-radius:50%;
+        background: radial-gradient(100% 100% at 30% 30%, #b3f0ff 0%, #6ee7ff 40%, #00bcd4 80%);
+      }
+      .nav-links{
+        display:flex; gap:28px; align-items:center;
+        font-size:14px; color:var(--text-700);
+      }
+      .nav-links a{padding:8px 2px}
+      .nav-links a:hover{color:var(--text-900)}
+      .btn-quote{
+        background:var(--primary); color:#fff;
+        padding:12px 18px; border-radius:9999px; font-size:14px;
+        font-weight:600; box-shadow: var(--shadow);
+      }
+
+      /* Hero */
+      .hero{
+        padding-block:56px;
+      }
+      .hero-panel{
+        background:var(--hero);
+        border-radius:var(--radius-lg);
+        position:relative;
+        overflow:hidden;
+        padding:48px clamp(20px, 3vw, 48px);
+      }
+      /* Decorative soft circle on right to mimic Figma composition */
+      .hero-panel::after{
+        content:""; position:absolute; inset:auto -120px -140px auto;
+        width:560px; height:560px; border-radius:50%;
+        background:#ffd2dd; /* lighter pink circle */
+        filter: blur(0.5px);
+      }
+      .hero-grid{
+        display:grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap:40px;
+        align-items:center;
+        position:relative;
+        z-index:1; /* above the decorative circle */
+      }
+      .eyebrow{
+        display:inline-flex; align-items:center; justify-content:center;
+        font-size:12px; color:var(--text-700);
+        background:#fff; padding:8px 14px; border-radius:9999px;
+        box-shadow:var(--shadow);
+        margin-inline:auto; margin-top:48px;
+      }
+      h1.hero-title{
+        font-size: clamp(32px, 5vw, 56px);
+        line-height:1.1; letter-spacing:-.4px; margin:0 0 18px;
+        font-weight:800;
+      }
+      .accent{color:var(--primary)}
+      .hero-copy{
+        color:var(--text-700);
+        font-size:14px; line-height:1.7; max-width:560px; margin:0 0 26px;
+      }
+      .cta-row{display:flex; gap:16px; flex-wrap:wrap}
+      .btn{
+        display:inline-flex; align-items:center; justify-content:center;
+        height:44px; padding:0 22px; border-radius:9999px; font-size:14px;
+        font-weight:700; border:1px solid transparent; transition:all .2s ease;
+      }
+      .btn-primary{background:var(--primary); color:#fff; box-shadow:var(--shadow)}
+      .btn-primary:hover{filter:brightness(.96)}
+      .btn-ghost{background:#fff; color:var(--primary); border-color:#ffd5dd}
+      .btn-ghost:hover{background:#fff0f3}
+
+      .hero-figure{
+        position:relative;
+        min-height:420px;
+      }
+      .girl{
+        position:relative;
+        width:min(520px, 100%);
+        margin-left:auto;
+        border-radius:16px;
+        box-shadow: var(--shadow);
+        overflow:hidden;
+      }
+      .girl img{
+        width:100%; height:100%; object-fit:cover;
+      }
+
+      /* Floating badges */
+      .rating, .stat{
+        position:absolute; display:flex; align-items:center; gap:12px;
+        background:#fff; border-radius:16px; padding:14px 16px;
+        box-shadow: var(--shadow); border:1px solid #f3f4f6;
+      }
+      .rating{
+        left:-14px; top:16px;
+      }
+      .rating .score{color:var(--green); font-size:28px; font-weight:800; line-height:1}
+      .rating .stars{display:flex; gap:2px}
+      .rating .label{font-size:14px; color:var(--text-700); font-weight:600}
+
+      .stat{
+        right:-10px; bottom:24px;
+      }
+      .stat-icon{
+        width:42px; height:42px; border-radius:10px; display:grid; place-items:center;
+        background:#ffe8ec; color:var(--primary);
+      }
+      .stat .num{font-weight:800; font-size:18px}
+      .stat .desc{font-size:12px; color:var(--text-700)}
+
+      /* Section: What You Get */
+      .section{
+        padding-block:64px;
+      }
+      .section h2{
+        text-align:center; font-size: clamp(22px, 3.1vw, 28px);
+        margin:12px 0 32px; line-height:1.35;
+      }
+      .features{
+        display:grid; gap:20px;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .card{
+        background:#fff; border-radius:16px; padding:22px; border:1px solid #f1f5f9;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+        transition: box-shadow .2s ease, transform .2s ease;
+      }
+      .card:hover{box-shadow: var(--shadow); transform: translateY(-2px)}
+      .ic{
+        width:48px; height:48px; border-radius:12px; background:#fff1f4; color:var(--primary);
+        display:grid; place-items:center; margin-bottom:14px;
+      }
+      .card h3{font-size:16px; margin:0 0 10px}
+      .card p{font-size:14px; color:var(--text-700); line-height:1.7; margin:0}
+
+      /* Footer (simple spacer) */
+      .footer{height:40px}
+
+      /* Responsive */
+      @media (max-width: 1024px){
+        .hero-grid{grid-template-columns:1fr; gap:28px}
+        .hero-figure{min-height:unset}
+        .rating{left:10px}
+        .stat{right:10px}
+        .features{grid-template-columns: repeat(2, 1fr)}
+      }
+      @media (max-width: 600px){
+        .nav{min-height:64px}
+        .nav-links{display:none} /* keep header simple on small screens */
+        .hero-panel{padding:28px 20px}
+        h1.hero-title{letter-spacing:-.2px}
+        .features{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" role="banner" aria-label="Site header">
+      <div class="container nav">
+        <a href="#" class="brand" aria-label="Company home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            COMPANY
+            <small class="tagline">business tagline</small>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#">Home</a>
+          <a href="#">About Us</a>
+          <a href="#">Our Services</a>
+          <a href="#">Pricing</a>
+          <a href="#">FAQ</a>
+          <a class="btn-quote" href="#" aria-label="Get a quote">Get A Quote</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-panel">
+            <div class="hero-grid">
+              <div>
+                <h1 class="hero-title">
+                  Your Resume <span class="accent">Deserves A Yes</span> Let’s
+                  Make It Happen
+                </h1>
+                <p class="hero-copy">
+                  If your resume isn’t getting responses, it’s time for an upgrade.
+                  Get an ATS-optimized resume crafted by HR experts to help you land
+                  more interviews. Our resumes are designed to get your foot in the door
+                  and place your name at the top of the shortlist.
+                </p>
+                <div class="cta-row">
+                  <a href="#" class="btn btn-primary">Resume Packages</a>
+                  <a href="#" class="btn btn-ghost">Contact Us</a>
+                </div>
+              </div>
+
+              <figure class="hero-figure" aria-label="Student holding notebook">
+                <div class="girl">
+                  <img 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-HNnBoTt8dxEHEl474Zbn4Ix0trxLVQ.png"
+                    alt="Smiling student holding a pink folder"
+                    width="520" height="620"
+                  />
+                </div>
+
+                <div class="rating" aria-label="Instructor rating">
+                  <span class="score">4.9</span>
+                  <div>
+                    <div class="stars" aria-hidden="true" title="5 stars">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <div class="label">Instructor Rating</div>
+                  </div>
+                </div>
+
+                <div class="stat" aria-label="Resumes created statistic">
+                  <div class="stat-icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 13L5 12.18V16l7 4 7-4v-3.82L12 16z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="num">260+</div>
+                    <div class="desc">Online Resume Created</div>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="eyebrow">What You Get</div>
+        <section class="section" aria-labelledby="benefits">
+          <h2 id="benefits">
+            You’re Not Just Another Applicant And Your Resume Shouldn’t Look Like One
+          </h2>
+
+          <div class="features" role="list">
+            <article class="card" role="listitem">
+              <div class="ic" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 3h10a2 2 0 0 1 2 2v14l-7-3-7 3V5a2 2 0 0 1 2-2z"/></svg>
+              </div>
+              <h3>A Resume That Passes ATS Filters</h3>
+              <p>Get a professionally written, keyword‑optimized resume that lands in recruiter inboxes—not rejection piles.</p>
+            </article>
+
+            <article class="card" role="listitem">
+              <div class="ic" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+              </div>
+              <h3>A Cover Letter That Gets Read</h3>
+              <p>Stand out with a cover letter that speaks directly to the role and reflects your strengths.</p>
+            </article>
+
+            <article class="card" role="listitem">
+              <div class="ic" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.2 0 4-1.79 4-4s-1.8-4-4-4c-2.21 0-4 1.79-4 4s1.79 4 4 4zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg>
+              </div>
+              <h3>A LinkedIn Profile That Works For You</h3>
+              <p>Attract the right eyes, start conversations, and show up in recruiter searches.</p>
+            </article>
+
+            <article class="card" role="listitem">
+              <div class="ic" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 8 1.35 8 4v3H4v-3c0-2.65 5.3-4 8-4zm0-2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+              </div>
+              <h3>Interview Confidence</h3>
+              <p>Interview preparation with real HR professionals so you speak clearly, confidently, and convincingly.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer" aria-label="Footer"></footer>
+  </body>
+</html>
